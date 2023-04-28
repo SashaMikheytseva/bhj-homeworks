@@ -2,8 +2,8 @@ const dead = document.getElementById("dead");
 const lost = document.getElementById("lost");
 
 getHole = index => document.getElementById(`hole${index}`);
-for (holeIndex = 1; holeIndex <= 9; holeIndex++) {
-    let hole = getHole(holeIndex);
+for (index = 1; index <= 9; index++) {
+    let hole = getHole(index);
     hole.onclick = function () {
         if (hole.className.includes("hole_has-mole")) {
             dead.textContent++;
