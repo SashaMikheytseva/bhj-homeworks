@@ -18,11 +18,11 @@ form.addEventListener('submit', (event) => {
 
     input.value = '';
     
-    let taskRemove = Array.from(document.querySelectorAll('.task__remove'));
-    taskRemove.forEach((elem) => {
-        elem.addEventListener('click', (event) => {
-            event.preventDefault();
-            elem.closest('.task').remove();
-        });
+    //убрала цикл -- вешаю обработчик только на добавляемый элемент
+    tasksList.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target.classList.contains('task__remove')) {
+            target.closest('.task').remove();
+        }
     });
 });
