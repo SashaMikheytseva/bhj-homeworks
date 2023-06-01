@@ -20,26 +20,24 @@ productQuantityControl.forEach((elem) => {
 
 //добавляем в корзину
 const productAdd = Array.from(document.querySelectorAll('.product__add'));
+productAdd.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+        const target = event.target;
+        const product = target.closest('.product');
+        const productId = product.dataset.id;
+        const productInCart = Array.from(document.querySelectorAll('.cart__product'));
+        const currentProduct = productInCart.find(elem => elem.dataset.id === productId);
+        const productQuantity = Number(product.querySelector('.product__quantity-value').textContent);
 
-productAdd.forEach((elem) => {
-    elem.addEventListener('click', () => {
-        const cart = Array.from(cartProducts.querySelectorAll('.cart__product'));
-        for (let el of cart) {
-            if (el.dataset.id == elem.closest('.product').dataset.id) {
-                const quantityCart = Number(el.querySelector('.cart__product-count').textContent);
-                const quantityPlus = Number(elem.closest('.product').querySelector('.product__quantity-value').textContent);
-                el.querySelector('.cart__product-count').textContent = quantityCart + quantityPlus;
-                return;
-            }
-        }
-         
-        
-        const product = elem.closest('.product');
-        
-        cartProducts.insertAdjacentHTML('beforeend', 
-            `<div class="cart__product" data-id="${product.dataset.id}">
+        if (currentProduct) {
+            let cartQuantity = Number(currentProduct.querySelector('.cart__product-count').textContent) + productQuantity;
+            currentProduct.querySelector('.cart__product-count').textContent = cartQuantity;
+        } else {
+            cartProducts.insertAdjacentHTML('beforeend', 
+            `<div class="cart__product" data-id="${productId}">
                 <img class="cart__product-image" src="${product.querySelector('.product__image').getAttribute('src')}">
                 <div class="cart__product-count">${product.querySelector('.product__quantity-value').textContent}</div>
             </div>`);
+        }
     });
 });
