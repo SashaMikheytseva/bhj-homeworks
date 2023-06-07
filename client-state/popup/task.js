@@ -16,8 +16,10 @@ function setCookie(name, value) {
 
 function getCookie(name) {
     const pairs = document.cookie.split('; ');
-    const cookie = pairs.find(el => el.startsWith(name + '='));
+    const cookie = pairs.find(el => el.startsWith(name));
+    return cookie;
 }
+
 
 
 
